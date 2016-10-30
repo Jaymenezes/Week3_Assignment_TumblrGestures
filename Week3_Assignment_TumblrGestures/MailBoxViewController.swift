@@ -10,6 +10,7 @@ import UIKit
 
 class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate{
     
+
     @IBOutlet weak var deleteImageView: UIImageView!
     @IBOutlet weak var archiveImageView: UIImageView!
     @IBOutlet weak var listImageView: UIImageView!
@@ -18,14 +19,23 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
     
     @IBOutlet weak var backgroundView: UIView!
 
+    @IBOutlet weak var messageParentView: UIView!
     var messageOriginalX: CGFloat!
     var laterImageViewOriginalX: CGFloat!
+    var listImageViewOriginalX: CGFloat!
+    var feedImageOriginalY: CGFloat!
+    var messageParentOriginalY: CGFloat!
+    
+
+
+
     var archiveImageViewOriginalX: CGFloat!
     var feedScrollViewOriginalX: CGFloat!
     
-        
+    
     @IBOutlet weak var feedScrollView: UIScrollView!
     @IBOutlet weak var feedImageView: UIImageView!
+    
     
     
     
@@ -37,8 +47,14 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         
         messageOriginalX = messageImageView.frame.origin.x
         laterImageViewOriginalX = laterImageView.frame.origin.x
+        listImageViewOriginalX = listImageView.frame.origin.x
+
         archiveImageViewOriginalX = archiveImageView.frame.origin.x
         feedScrollViewOriginalX = feedScrollView.frame.origin.x
+        feedImageOriginalY = feedImageView.frame.origin.y
+        messageParentOriginalY = messageParentView.frame.origin.y
+
+
         
 
         
@@ -68,7 +84,6 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
 @IBAction func panMessage(_ sender: UIPanGestureRecognizer) {
     let location = sender.location(in: view)
     let translation = sender.translation(in: view)
-    print("l",location)
     print(translation)
     
     if sender.state == .began {
@@ -80,13 +95,19 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         
         laterImageView.alpha = 0.2
         archiveImageView.alpha = 0.2
+        deleteImageView.alpha = 0
+        listImageView.alpha = 0
         
         laterImageView.image = UIImage(named: "later_icon")
         archiveImageView.image = UIImage(named: "archive_icon")
+        listImageView.image = UIImage(named: "list_icon")
+        deleteImageView.image = UIImage(named: "delete_icon")
         
         backgroundView.backgroundColor = UIColor.lightGray
         messageImageView.frame.origin.x = messageOriginalX + translation.x
-        deleteImageView.alpha = 0
+        
+      
+        
 
 
         // panning messageImageView to the right
@@ -94,8 +115,9 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         if messageImageView.frame.origin.x > 0 && messageImageView.frame.origin.x < 60 {
             archiveImageView.alpha = 0.2
             backgroundView.backgroundColor = UIColor.lightGray
+            
 
-            archiveImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 85)
+            archiveImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 75)
 
 
             
@@ -103,8 +125,9 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         } else if messageImageView.frame.origin.x > 60 && messageImageView.frame.origin.x < 260 {
             
             self.backgroundView.backgroundColor = UIColor.green
+            
             archiveImageView.alpha = 0.2
-            archiveImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 85)
+            archiveImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 75)
 
             self.archiveImageView.alpha = 1
 
@@ -113,51 +136,101 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         } else if messageImageView.frame.origin.x > 260{
             self.backgroundView.backgroundColor = UIColor.red
             self.deleteImageView.alpha = 1
-            deleteImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 85)
+            deleteImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 75)
 
             self.archiveImageView.alpha = 0
+  
             
-            UIView.animate(withDuration: 0.5, animations: {
-                
-            })
+            //panning messageImageView to the left
 
+        } else if messageImageView.frame.origin.x < 0 && messageImageView.frame.origin.x > -60 {
+            laterImageView.alpha = 0.2
+            backgroundView.backgroundColor = UIColor.lightGray
             
             
-            
-        } else if messageImageView.frame.origin.x < 0 && messageImageView.frame.origin.x > -375 {
+            self.laterImageView.frame.origin.x = laterImageViewOriginalX + (translation.x + 75)
             
             
             
         
-        } else if messageImageView.frame.origin.x > 0 && messageImageView.frame.origin.x < 260 {
+        } else if messageImageView.frame.origin.x < -60 && messageImageView.frame.origin.x > -260 {
+            laterImageView.alpha = 1
+            backgroundView.backgroundColor = UIColor.yellow
             
-            UIView.animate(withDuration: 0.5, animations: {
-                self.backgroundView.backgroundColor = UIColor.green
-            })
-        } else if messageImageView.frame.origin.x > 0 && messageImageView.frame.origin.x < 375 {
             
-            UIView.animate(withDuration: 0.5, animations: {
-                self.backgroundView.backgroundColor = UIColor.red
-            })
+            self.laterImageView.frame.origin.x = laterImageViewOriginalX + (translation.x + 75)
+            
+      
+
+            
+         
+            
+        } else if messageImageView.frame.origin.x < -260 {
+            self.backgroundView.backgroundColor = UIColor.brown
+            listImageView.alpha = 1
+            self.listImageView.frame.origin.x = listImageViewOriginalX + (translation.x + 75)
+
+            self.laterImageView.alpha = 0
+            
+           
             
         }
     } else if sender.state == .ended {
-        messageImageView.frame.origin.x = messageOriginalX + translation.x
+        if messageImageView.frame.origin.x > 0 && messageImageView.frame.origin.x < 60 {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.messageImageView.frame.origin.x = self.messageOriginalX
+                self.archiveImageView.alpha = 0
+                
+            })
+            
+            
+            
+            
+            
+            
+        } else if messageImageView.frame.origin.x > 60 && messageImageView.frame.origin.x < 260 {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.messageImageView.frame.origin.x = self.messageOriginalX + (translation.x + 300)
+                self.archiveImageView.alpha = 0
 
+            }) { (Bool) in
+            }
+            
+            
+            
+        } else if messageImageView.frame.origin.x > 260{
+            self.backgroundView.backgroundColor = UIColor.red
+            self.deleteImageView.alpha = 0
+            self.messageImageView.frame.origin.x = self.messageOriginalX + (translation.x + 300)
+            
+            self.archiveImageView.alpha = 0
+            UIView.animate(withDuration: 0.2, animations: {
+                self.messageImageView.frame.origin.x = self.messageOriginalX + (translation.x + 300)
+
+        }) { (Bool) in
+            UIView.animate(withDuration: 0.1, animations: {
+                self.backgroundView.alpha = 0
+
+            })
+            UIView.animate(withDuration: 0.5, animations: {
+                self.feedImageView.frame.origin.y = self.feedImageOriginalY + (translation.y - 100)
+                
+            })
+
+        }
+        
+           
+            
+        }
+        
+        
+//        messageImageView.transform = messageImageView.transform.scaledBy(x: messageOriginalX, y: 0)
 
         
         
     }
     
-    //                                        archiveImageView.image = UIImage(named: "archive_icon")
-    //                                        archiveImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 60)
-    
-    
-    //            } else messageImageView.frame.origin.x > 0 && messageImageView.frame.origin.x < 375 {
-    //
-    //                UIView.animate(withDuration: 0.3, animations: {
-    //
-    //                    }//
+
     
     
 }

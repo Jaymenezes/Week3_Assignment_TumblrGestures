@@ -51,11 +51,11 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="later_icon" id="tBB-cU-wS9">
-                                                <rect key="frame" x="284" y="35" width="25" height="25"/>
+                                                <rect key="frame" x="325" y="35" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="list_icon" id="nkg-2E-XiJ">
-                                                <rect key="frame" x="323" y="35" width="25" height="25"/>
+                                                <rect key="frame" x="325" y="35" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" misplaced="YES" image="message" id="J4M-Ws-yKc">
@@ -104,6 +104,7 @@
                         <outlet property="laterImageView" destination="tBB-cU-wS9" id="wg1-QZ-aoy"/>
                         <outlet property="listImageView" destination="nkg-2E-XiJ" id="DOT-ex-Rx6"/>
                         <outlet property="messageImageView" destination="J4M-Ws-yKc" id="Vc7-pF-o76"/>
+                        <outlet property="messageParentView" destination="5BX-Pb-4Bz" id="n1r-CM-esc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
