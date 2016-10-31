@@ -11,6 +11,7 @@ import UIKit
 class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate{
     
     
+    @IBOutlet var tapDismissLaterPage: UITapGestureRecognizer!
     @IBOutlet weak var deleteImageView: UIImageView!
     @IBOutlet weak var archiveImageView: UIImageView!
     @IBOutlet weak var listImageView: UIImageView!
@@ -25,6 +26,7 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
     
     @IBOutlet weak var fullScreenListImageView: UIImageView!
    
+    @IBOutlet weak var reescheduleFullImageView: UIImageView!
     
     var messageOriginalX: CGFloat!
     var laterImageViewOriginalX: CGFloat!
@@ -68,7 +70,13 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         edgePanGestureRecognizer.delegate = self
         edgePanGestureRecognizer.edges = UIRectEdge.left
        
-        
+//        let menuEdgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(didScreenEdgePan(sender:)))
+//        menuImageView.isUserInteractionEnabled = true
+//        menuImageView.addGestureRecognizer(edgePanGestureRecognizer)
+//        menuEdgePanGestureRecognizer.delegate = self
+//        menuEdgePanGestureRecognizer.edges = UIRectEdge.right
+//        
+//        
         
         // Do any additional setup after loading the view.
     }
@@ -76,6 +84,11 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    @IBAction func menuRestoreButton(_ sender: Any) {
+        UIView.animate(withDuration: 0.6, delay: 0, options: .curveEaseInOut, animations: {
+        self.masterParentView.frame.origin.x = self.masterParentViewOriginalX
+        })
     }
     
     @IBAction func didPressRestoreDoubleTap(_ sender: UITapGestureRecognizer) {
@@ -102,7 +115,49 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         print("restorebeingCalled")
         
     }
+    // pan masterParentView
+
+//    func menuEdgePanGestureRecognizer(sender: UIScreenEdgePanGestureRecognizer) {
+//        menuImageView.alpha = 1
+//        let translation = sender.translation(in: view)
+//        let velocity = sender.velocity(in: view)
+//        print("velocity", velocity)
+//        
+//        if sender.state == .began {
+//            self.menuImageView.frame.origin.x = self.masterParentViewOriginalX + (translation.x + 320)
+//
+//            
+//        } else if sender.state == .changed {
+//            self.menuImageView.frame.origin.x = self.masterParentViewOriginalX + translation.x
+//            
+//            
+//        } else if sender.state == .ended {
+//            if velocity.x > 0 {
+//                //                self.masterParentView.frame.origin.x = self.masterParentViewOriginalX + (translation.x + 350)
+//                
+//                
+//                UIView.animate(withDuration: 0.6, delay: 0, options: .curveEaseInOut, animations: {
+//                    self.menuImageView.frame.origin.x = self.masterParentViewOriginalX + (translation.x + 320)
+//                    
+//                    
+//                }, completion: { (Bool) in
+//                    
+//                })
+//                
+//            } else if velocity.x < 0{
+//                UIView.animate(withDuration: 0.6, delay: 0, options: .curveEaseInOut, animations: {
+//                    self.menuImageView.frame.origin.x = self.masterParentViewOriginalX
+//                    
+//                }, completion: { (Bool) in
+//                    
+//                })
+//            }
+//            
+//            
+//        }
+//    }
     
+    // pan masterParentView
     func didScreenEdgePan(sender: UIScreenEdgePanGestureRecognizer) {
         menuImageView.alpha = 1
         let translation = sender.translation(in: view)
@@ -121,7 +176,7 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
 
                 
                 UIView.animate(withDuration: 0.6, delay: 0, options: .curveEaseInOut, animations: {
-                    self.masterParentView.frame.origin.x = self.masterParentViewOriginalX + (translation.x + 320)
+                    self.masterParentView.frame.origin.x = self.masterParentViewOriginalX + 335
 
                     
                 }, completion: { (Bool) in
@@ -143,8 +198,67 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
     
  
     
+    @IBAction func didPressDismissLaterPage(_ sender: UITapGestureRecognizer) {
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+            self.reescheduleFullImageView.alpha = 0
+            
+        }, completion: { (Bool) in
+            self.messageParentView.alpha = 0
+            self.backgroundView.alpha = 1
+      
+            
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.feedImageView.frame.origin.y = self.feedImageOriginalY
+                
+            }) { (Bool) in
+                UIView.animate(withDuration: 0, animations: {
+                    self.messageImageView.frame.origin.x = self.messageOriginalX
+                    
+                })
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.messageParentView.alpha = 1
+                    
+                    
+                    
+                })
+            }
+            
+        })
+    }
     
-    
+    @IBAction func didTapDismissList(_ sender: UITapGestureRecognizer) {
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+            self.fullScreenListImageView.alpha = 0
+            
+        }, completion: { (Bool) in
+            self.messageParentView.alpha = 0
+            self.backgroundView.alpha = 1
+            self.archiveImageView.alpha = 1
+            
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.feedImageView.frame.origin.y = self.feedImageOriginalY
+                
+            }) { (Bool) in
+                UIView.animate(withDuration: 0, animations: {
+                    self.messageImageView.frame.origin.x = self.messageOriginalX
+                    
+                })
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.messageParentView.alpha = 1
+                    
+                    
+                    
+                })
+            }
+            
+        })
+        
+        
+    }
     @IBAction func panMessage(_ sender: UIPanGestureRecognizer) {
         let location = sender.location(in: view)
         let translation = sender.translation(in: view)
@@ -297,25 +411,46 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 })
 
             } else if messageImageView.frame.origin.x < -60 && messageImageView.frame.origin.x > -260 {
-                backgroundView.backgroundColor = UIColor.yellow
-
-                UIView.animate(withDuration: 0.4, animations: {
-
+                
+                archiveImageView.alpha = 0
+                self.backgroundView.backgroundColor = UIColor.yellow
+                self.laterImageView.alpha = 1
+                UIView.animate(withDuration: 0.3, animations: {
                     self.messageImageView.frame.origin.x = self.messageOriginalX + (translation.x - 300)
                     self.laterImageView.alpha = 0
+                    self.reescheduleFullImageView.alpha = 1
                     
                     
                 }) { (Bool) in
                     UIView.animate(withDuration: 0.1, animations: {
                         self.backgroundView.alpha = 0
-                        
                     })
                     UIView.animate(withDuration: 0.5, animations: {
                         self.feedImageView.frame.origin.y = self.feedImageOriginalY + (translation.y - 100)
                         
                     })
-                    
                 }
+//                
+//                backgroundView.backgroundColor = UIColor.yellow
+//
+//                UIView.animate(withDuration: 0.4, animations: {
+//
+//                    self.messageImageView.frame.origin.x = self.messageOriginalX + (translation.x - 300)
+//                    self.laterImageView.alpha = 0
+//                    self.reescheduleFullImageView.alpha = 1
+//                    
+//                    
+//                }) { (Bool) in
+//                    UIView.animate(withDuration: 0.1, animations: {
+//                        self.backgroundView.alpha = 0
+//                        
+//                    })
+//                    UIView.animate(withDuration: 0.5, animations: {
+//                        self.feedImageView.frame.origin.y = self.feedImageOriginalY + (translation.y - 100)
+//                        
+//                    })
+//                    
+//                }
 
             } else if messageImageView.frame.origin.x < -260 {
                 
@@ -325,6 +460,8 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 UIView.animate(withDuration: 0.3, animations: {
                     self.messageImageView.frame.origin.x = self.messageOriginalX + (translation.x - 300)
                     self.listImageView.alpha = 0
+                    self.fullScreenListImageView.alpha = 1
+
 
                 }) { (Bool) in
                     UIView.animate(withDuration: 0.1, animations: {

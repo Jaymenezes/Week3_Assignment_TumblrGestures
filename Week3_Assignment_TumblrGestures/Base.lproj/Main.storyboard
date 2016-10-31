@@ -17,10 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleAspectFit" misplaced="YES" image="list" id="ryB-az-V84">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="668"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleAspectFit" misplaced="YES" image="menu" id="fo9-Ul-vtJ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask"/>
@@ -90,6 +86,13 @@
                                         <rect key="frame" x="20" y="20" width="375" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Vla-fv-ec1">
+                                        <rect key="frame" x="37" y="56" width="30" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="menuRestoreButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aAm-g6-5IA"/>
+                                        </connections>
+                                    </button>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="P0z-S1-Ddr">
                                         <rect key="frame" x="112" y="54" width="199" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -101,10 +104,24 @@
                                         <color key="tintColor" red="0.43137254901960786" green="0.74901960784313726" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
                                     </segmentedControl>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleAspectFit" misplaced="YES" image="list" id="ryB-az-V84">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleAspectFit" misplaced="YES" image="reschedule" id="uM8-K6-gfA">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="WYE-e1-OXA" appends="YES" id="ACb-p1-2gh"/>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Tch-wN-oze" appends="YES" id="4pK-0p-nyN"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="archiveImageView" destination="woW-DB-Y4u" id="IJj-U5-qvX"/>
@@ -112,13 +129,15 @@
                         <outlet property="deleteImageView" destination="UjE-IO-ERS" id="G0B-Dl-xPI"/>
                         <outlet property="feedImageView" destination="hOi-It-blh" id="sit-B5-Avc"/>
                         <outlet property="feedScrollView" destination="RBF-VN-Q9e" id="aI1-0O-vLO"/>
-                        <outlet property="fullScreenListImageView" destination="ryB-az-V84" id="I3G-6i-SLK"/>
+                        <outlet property="fullScreenListImageView" destination="ryB-az-V84" id="ISK-Vk-jkf"/>
                         <outlet property="laterImageView" destination="tBB-cU-wS9" id="wg1-QZ-aoy"/>
                         <outlet property="listImageView" destination="nkg-2E-XiJ" id="DOT-ex-Rx6"/>
                         <outlet property="masterParentView" destination="jUQ-ea-OlY" id="QX1-I0-GaA"/>
                         <outlet property="menuImageView" destination="fo9-Ul-vtJ" id="2kB-cU-1Vd"/>
                         <outlet property="messageImageView" destination="J4M-Ws-yKc" id="Vc7-pF-o76"/>
                         <outlet property="messageParentView" destination="5BX-Pb-4Bz" id="n1r-CM-esc"/>
+                        <outlet property="reescheduleFullImageView" destination="uM8-K6-gfA" id="doE-Sr-vFW"/>
+                        <outlet property="tapDismissLaterPage" destination="WYE-e1-OXA" id="zGf-ud-CRw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -130,6 +149,18 @@
                 <tapGestureRecognizer numberOfTapsRequired="2" id="94X-LF-3cm" userLabel="restore Tap">
                     <connections>
                         <action selector="didPressRestoreDoubleTap:" destination="BYZ-38-t0r" id="tFz-h5-bJf"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="WYE-e1-OXA">
+                    <connections>
+                        <action selector="didPressDismissLaterPage:" destination="BYZ-38-t0r" id="PIC-B9-rdG"/>
+                        <outlet property="delegate" destination="uM8-K6-gfA" id="vCB-If-kWT"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Tch-wN-oze">
+                    <connections>
+                        <action selector="didTapDismissList:" destination="BYZ-38-t0r" id="wPF-ep-XTI"/>
+                        <outlet property="delegate" destination="ryB-az-V84" id="rFO-jg-Mwa"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -150,6 +181,7 @@
         <image name="menu" width="320" height="568"/>
         <image name="message" width="320" height="86"/>
         <image name="nav" width="320" height="65"/>
+        <image name="reschedule" width="320" height="568"/>
         <image name="search" width="320" height="42"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
