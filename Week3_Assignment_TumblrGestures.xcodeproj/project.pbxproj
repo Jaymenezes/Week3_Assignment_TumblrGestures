@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE57DE5E1DC738C60008850D /* composeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE57DE5D1DC738C60008850D /* composeViewController.swift */; };
+		CE57DE601DC7E4B80008850D /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE57DE5F1DC7E4B80008850D /* Common.swift */; };
 		CE7ADACF1DC1D51C006B5033 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7ADACE1DC1D51C006B5033 /* AppDelegate.swift */; };
 		CE7ADAD11DC1D51C006B5033 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7ADAD01DC1D51C006B5033 /* ViewController.swift */; };
 		CE7ADAD41DC1D51C006B5033 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE7ADAD21DC1D51C006B5033 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		CE57DE5D1DC738C60008850D /* composeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = composeViewController.swift; sourceTree = "<group>"; };
+		CE57DE5F1DC7E4B80008850D /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		CE7ADACB1DC1D51C006B5033 /* Week3_Assignment_TumblrGestures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Week3_Assignment_TumblrGestures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7ADACE1DC1D51C006B5033 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE7ADAD01DC1D51C006B5033 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -44,6 +46,7 @@
 			children = (
 				CE7ADACD1DC1D51C006B5033 /* Week3_Assignment_TumblrGestures */,
 				CE7ADACC1DC1D51C006B5033 /* Products */,
+				CE57DE5F1DC7E4B80008850D /* Common.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -146,6 +149,7 @@
 				CE7ADAD11DC1D51C006B5033 /* ViewController.swift in Sources */,
 				CE7ADACF1DC1D51C006B5033 /* AppDelegate.swift in Sources */,
 				CE7ADAE11DC1D6B6006B5033 /* MailBoxViewController.swift in Sources */,
+				CE57DE601DC7E4B80008850D /* Common.swift in Sources */,
 				CE57DE5E1DC738C60008850D /* composeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
