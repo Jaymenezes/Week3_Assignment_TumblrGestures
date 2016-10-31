@@ -17,6 +17,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleAspectFit" misplaced="YES" image="list" id="ryB-az-V84">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="668"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleAspectFit" misplaced="YES" image="menu" id="fo9-Ul-vtJ">
+                                <rect key="frame" x="-65" y="0.0" width="375" height="668"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" id="RBF-VN-Q9e">
                                 <rect key="frame" x="0.0" y="70" width="375" height="597"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -24,6 +32,7 @@
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" misplaced="YES" image="feed" id="hOi-It-blh">
                                         <rect key="frame" x="0.0" y="92" width="375" height="1400"/>
                                         <autoresizingMask key="autoresizingMask"/>
+                                        <gestureRecognizers/>
                                     </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" misplaced="YES" image="search" id="eeL-Nq-cJm">
                                         <rect key="frame" x="0.0" y="44" width="375" height="50"/>
@@ -69,13 +78,12 @@
                                         </subviews>
                                     </view>
                                 </subviews>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="94X-LF-3cm" appends="YES" id="yc4-qm-SGM"/>
+                                </connections>
                             </scrollView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" misplaced="YES" image="nav" id="FUC-wc-jcm">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="77"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleAspectFit" image="list" id="ryB-az-V84">
-                                <rect key="frame" x="0.0" y="-1" width="375" height="668"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="P0z-S1-Ddr">
@@ -88,10 +96,6 @@
                                 </segments>
                                 <color key="tintColor" red="0.43137254901960786" green="0.74901960784313726" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
                             </segmentedControl>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleAspectFit" misplaced="YES" image="menu" id="fo9-Ul-vtJ">
-                                <rect key="frame" x="-65" y="-1" width="375" height="668"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -113,6 +117,11 @@
                         <action selector="panMessage:" destination="BYZ-38-t0r" id="Hix-RJ-T04"/>
                     </connections>
                 </panGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="94X-LF-3cm" userLabel="restore Tap">
+                    <connections>
+                        <action selector="didPressRestoreDoubleTap:" destination="BYZ-38-t0r" id="tFz-h5-bJf"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="85.5" y="152.5"/>
         </scene>
