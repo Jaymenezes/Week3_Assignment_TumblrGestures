@@ -87,10 +87,17 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Vla-fv-ec1">
-                                        <rect key="frame" x="37" y="56" width="30" height="24"/>
+                                        <rect key="frame" x="347" y="56" width="30" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
-                                            <action selector="menuRestoreButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aAm-g6-5IA"/>
+                                            <segue destination="PED-cZ-WJ4" kind="modal" modalTransitionStyle="flipHorizontal" id="4Xo-Sf-7Ga"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3wM-8H-dTg">
+                                        <rect key="frame" x="192" y="341" width="30" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="menuRestoreButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u8L-7C-SaX"/>
                                         </connections>
                                     </button>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="P0z-S1-Ddr">
@@ -166,11 +173,44 @@
             </objects>
             <point key="canvasLocation" x="85.5" y="152.5"/>
         </scene>
+        <!--Compose View Controller-->
+        <scene sceneID="bpa-bc-Vi9">
+            <objects>
+                <viewController id="PED-cZ-WJ4" customClass="composeViewController" customModule="Week3_Assignment_TumblrGestures" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uUX-Hb-HgS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="fakeCompose" id="gBS-qJ-THC">
+                                <rect key="frame" x="-26" y="0.0" width="428" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="b6D-S1-mMk">
+                                <rect key="frame" x="7" y="30" width="39" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="didPressDismissView:" destination="PED-cZ-WJ4" eventType="touchUpInside" id="uvL-15-oEv"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" misplaced="YES" id="ncD-AR-NLe">
+                                <rect key="frame" x="0.0" y="0.0" width="376" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.18431372549019609" green="0.72156862745098038" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dem-9D-HWv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="609.5" y="153.5"/>
+        </scene>
     </scenes>
     <resources>
         <image name="archive_icon" width="25" height="25"/>
         <image name="archive_nav_icon" width="25" height="20"/>
         <image name="delete_icon" width="25" height="25"/>
+        <image name="fakeCompose" width="187" height="333"/>
         <image name="feed" width="320" height="1202"/>
         <image name="help_label" width="320" height="37"/>
         <image name="later_icon" width="25" height="25"/>
