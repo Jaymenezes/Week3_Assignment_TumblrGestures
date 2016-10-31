@@ -88,6 +88,47 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         // Dispose of any resources that can be recreated.
     }
     
+//    override func canBecomeFirstResponder() -> Bool {
+//        
+//        }
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        
+    
+            messageParentView.alpha = 0
+            backgroundView.alpha = 1
+            archiveImageView.alpha = 1
+            
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.feedImageView.frame.origin.y = self.feedImageOriginalY
+                
+            }) { (Bool) in
+                UIView.animate(withDuration: 0, animations: {
+                    self.messageImageView.frame.origin.x = self.messageOriginalX
+                    
+                })
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.messageParentView.alpha = 1
+                    
+                    
+                    
+                })
+            }
+
+        
+
+        print("shake works")
+        
+        
+    }
+    
+    
+    
+//    overide func canBecomeFirstResponder() -> Bool {
+//        return true
+//        
+//    }
+//    
 
     
     
