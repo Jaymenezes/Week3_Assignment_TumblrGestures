@@ -109,6 +109,9 @@
                                             <segment title="" image="archive_nav_icon"/>
                                         </segments>
                                         <color key="tintColor" red="0.43137254901960786" green="0.74901960784313726" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="toggleNavSegmentedControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="FzL-JE-nTQ"/>
+                                        </connections>
                                     </segmentedControl>
                                 </subviews>
                             </view>
@@ -143,6 +146,7 @@
                         <outlet property="menuImageView" destination="fo9-Ul-vtJ" id="2kB-cU-1Vd"/>
                         <outlet property="messageImageView" destination="J4M-Ws-yKc" id="Vc7-pF-o76"/>
                         <outlet property="messageParentView" destination="5BX-Pb-4Bz" id="n1r-CM-esc"/>
+                        <outlet property="navBarSegmentedControl" destination="P0z-S1-Ddr" id="gOI-LI-Mfz"/>
                         <outlet property="reescheduleFullImageView" destination="uM8-K6-gfA" id="doE-Sr-vFW"/>
                         <outlet property="tapDismissLaterPage" destination="WYE-e1-OXA" id="zGf-ud-CRw"/>
                     </connections>

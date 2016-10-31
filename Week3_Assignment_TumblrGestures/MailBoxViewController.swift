@@ -24,6 +24,7 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
     @IBOutlet weak var masterParentView: UIView!
     @IBOutlet weak var menuImageView: UIImageView!
     
+    @IBOutlet weak var navBarSegmentedControl: UISegmentedControl!
     @IBOutlet weak var fullScreenListImageView: UIImageView!
    
     @IBOutlet weak var reescheduleFullImageView: UIImageView!
@@ -36,17 +37,21 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
     var feedScrollViewOriginalX: CGFloat!
     var masterParentViewOriginalX: CGFloat!
     var feedImageOriginalY: CGFloat!
-    
-    
-    
-    
-    
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         feedScrollView.contentSize = CGSize(width: 375, height: 1500)
         feedScrollView.frame.size = CGSize(width: 375, height: 667)
+        
+        
+      
+
+
+
+
+        
         
         
         
@@ -70,17 +75,7 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         edgePanGestureRecognizer.delegate = self
         edgePanGestureRecognizer.edges = UIRectEdge.left
         
-   
-       
-//        let menuEdgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(didScreenEdgePan(sender:)))
-//        menuImageView.isUserInteractionEnabled = true
-//        menuImageView.addGestureRecognizer(edgePanGestureRecognizer)
-//        menuEdgePanGestureRecognizer.delegate = self
-//        menuEdgePanGestureRecognizer.edges = UIRectEdge.right
-//        
-//        
-        
-        // Do any additional setup after loading the view.
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -88,9 +83,9 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         // Dispose of any resources that can be recreated.
     }
     
-//    override func canBecomeFirstResponder() -> Bool {
-//        
-//        }
+    
+
+    
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         
     
@@ -122,7 +117,21 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         
     }
     
-    
+    @IBAction func toggleNavSegmentedControl(_ sender: UISegmentedControl) {
+        
+        if sender.selectedSegmentIndex == 0 {
+            reescheduleFullImageView.alpha = 1
+            
+            
+        } else if sender.selectedSegmentIndex == 1 {
+            reescheduleFullImageView.alpha = 0
+            
+        } else if sender.selectedSegmentIndex == 2 {
+            
+        }
+        
+    }
+
     
 //    overide func canBecomeFirstResponder() -> Bool {
 //        return true
@@ -206,6 +215,10 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
  
     
     @IBAction func didPressDismissLaterPage(_ sender: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 0.7){
+        self.navBarSegmentedControl.selectedSegmentIndex = 1
+        }
+
         reescheduleFullImageView.alpha = 0
         UIView.animate(withDuration: 0.4, animations: {
             self.messageImageView.frame.origin.x = self.messageOriginalX + 300
@@ -227,50 +240,7 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
     }
 
     
-//        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-//            self.reescheduleFullImageView.alpha = 0
-//            
-//        }
-//,            completion: { (Bool) in
-//            self.messageParentView.alpha = 0
-//            self.backgroundView.alpha = 1
-//            
-//            UIView.animate(withDuration: 0.4, animations: {
-//                self.messageImageView.frame.origin.x = self.messageOriginalX + 300
-//                self.archiveImageView.alpha = 0
-//                
-//            }) { (Bool) in
-//                UIView.animate(withDuration: 0.1, animations: {
-//                    self.backgroundView.alpha = 0
-//                    
-//                })
-//                UIView.animate(withDuration: 0.5, animations: {
-//                    self.feedImageView.frame.origin.y = self.feedImageOriginalY - 100
-//                    
-//                })
-//                
-//            }
 
-            
-            
-//            UIView.animate(withDuration: 0.2, animations: {
-//                self.feedImageView.frame.origin.y = self.feedImageOriginalY - 100
-//                
-//            }) { (Bool) in
-//                UIView.animate(withDuration: 0, animations: {
-//                    self.messageImageView.frame.origin.x = self.messageOriginalX
-//                    
-//                })
-//                UIView.animate(withDuration: 0.1, animations: {
-//                    self.messageParentView.alpha = 1
-//                    
-//                    
-//                    
-//                })
-//            }
-//            
-//        })
-//    }
     
     @IBAction func didTapDismissList(_ sender: UITapGestureRecognizer) {
         
@@ -346,8 +316,12 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 
                 
             } else if messageImageView.frame.origin.x > 60 && messageImageView.frame.origin.x < 260 {
+                let myGreen = UIColor(red: 112/255, green: 216/255, blue: 98/255, alpha: 1.0)
+
                 
-                self.backgroundView.backgroundColor = UIColor.green
+                self.backgroundView.backgroundColor = myGreen
+                
+                
                 
                 archiveImageView.alpha = 0.2
                 archiveImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 75)
@@ -357,7 +331,9 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 
                 
             } else if messageImageView.frame.origin.x > 260{
-                self.backgroundView.backgroundColor = UIColor.red
+                let myRed = UIColor(red: 235, green: 84, blue: 51)
+
+                self.backgroundView.backgroundColor = myRed
                 self.deleteImageView.alpha = 1
                 deleteImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 75)
                 
@@ -374,7 +350,9 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 
             } else if messageImageView.frame.origin.x < -60 && messageImageView.frame.origin.x > -260 {
                 laterImageView.alpha = 1
-                backgroundView.backgroundColor = UIColor.yellow
+                let myYellow = UIColor(red: 250, green: 211, blue: 51)
+
+                backgroundView.backgroundColor = myYellow
                 
                 
                 self.laterImageView.frame.origin.x = laterImageViewOriginalX + (translation.x + 75)
@@ -382,7 +360,9 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 
             } else if messageImageView.frame.origin.x < -260 {
                 archiveImageView.alpha = 0
-                self.backgroundView.backgroundColor = UIColor.brown
+                let myBrown = UIColor(red: 216, green: 166, blue: 117)
+
+                self.backgroundView.backgroundColor = myBrown
                 listImageView.alpha = 1
                 self.listImageView.frame.origin.x = listImageViewOriginalX + (translation.x + 75)
                 
@@ -479,7 +459,9 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
             } else if messageImageView.frame.origin.x < -260 {
                 
                 archiveImageView.alpha = 0
-                self.backgroundView.backgroundColor = UIColor.brown
+                let myBrown = UIColor(red: 216, green: 166, blue: 217)
+
+                self.backgroundView.backgroundColor = myBrown
                 self.listImageView.alpha = 1
                 UIView.animate(withDuration: 0.3, animations: {
                     self.messageImageView.frame.origin.x = self.messageOriginalX + (translation.x - 300)
@@ -509,6 +491,18 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
     
     
     
+}
+
+
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        let newRed = CGFloat(red)/255
+        let newGreen = CGFloat(green)/255
+        let newBlue = CGFloat(blue)/255
+        
+        
+        self.init(red: newRed, green: newGreen, blue: newBlue, alpha: 1.0)
+    }
 }
 
 
