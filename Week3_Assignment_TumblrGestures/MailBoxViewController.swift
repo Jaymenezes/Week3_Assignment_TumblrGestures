@@ -20,7 +20,11 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
     @IBOutlet weak var messageParentView: UIView!
     @IBOutlet weak var feedScrollView: UIScrollView!
     @IBOutlet weak var feedImageView: UIImageView!
+    @IBOutlet weak var masterParentView: UIView!
+    @IBOutlet weak var menuImageView: UIImageView!
     
+    @IBOutlet weak var fullScreenListImageView: UIImageView!
+   
     
     var messageOriginalX: CGFloat!
     var laterImageViewOriginalX: CGFloat!
@@ -28,7 +32,7 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
     var messageParentOriginalY: CGFloat!
     var archiveImageViewOriginalX: CGFloat!
     var feedScrollViewOriginalX: CGFloat!
-    
+    var masterParentViewOriginalX: CGFloat!
     var feedImageOriginalY: CGFloat!
     
     
@@ -53,14 +57,17 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         feedScrollViewOriginalX = feedScrollView.frame.origin.x
         feedImageOriginalY = feedImageView.frame.origin.y
         messageParentOriginalY = messageParentView.frame.origin.y
+         masterParentViewOriginalX = masterParentView.frame.origin.x
         
         
         
-        let edgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(didPanFeedScrollView(sender:)))
-        feedScrollView.isUserInteractionEnabled = true
-        feedScrollView.addGestureRecognizer(edgePanGestureRecognizer)
+        
+        let edgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(didScreenEdgePan(sender:)))
+        masterParentView.isUserInteractionEnabled = true
+        masterParentView.addGestureRecognizer(edgePanGestureRecognizer)
         edgePanGestureRecognizer.delegate = self
         edgePanGestureRecognizer.edges = UIRectEdge.left
+       
         
         
         // Do any additional setup after loading the view.
@@ -96,11 +103,45 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
         
     }
     
-    func didPanFeedScrollView (sender: UIScreenEdgePanGestureRecognizer) {
-        
-        let location = sender.location(in: view)
+    func didScreenEdgePan(sender: UIScreenEdgePanGestureRecognizer) {
+        menuImageView.alpha = 1
+        let translation = sender.translation(in: view)
+        let velocity = sender.velocity(in: view)
+        print("velocity", velocity)
 
+        if sender.state == .began {
+
+        } else if sender.state == .changed {
+            self.masterParentView.frame.origin.x = self.masterParentViewOriginalX + translation.x
+
+        
+        } else if sender.state == .ended {
+            if velocity.x > 0 {
+//                self.masterParentView.frame.origin.x = self.masterParentViewOriginalX + (translation.x + 350)
+
+                
+                UIView.animate(withDuration: 0.6, delay: 0, options: .curveEaseInOut, animations: {
+                    self.masterParentView.frame.origin.x = self.masterParentViewOriginalX + (translation.x + 320)
+
+                    
+                }, completion: { (Bool) in
+                    
+                })
+                
+            } else if velocity.x < 0{
+                UIView.animate(withDuration: 0.6, delay: 0, options: .curveEaseInOut, animations: {
+                    self.masterParentView.frame.origin.x = self.masterParentViewOriginalX
+                    
+                }, completion: { (Bool) in
+                    
+                })
+            }
+
+
+        }
     }
+    
+ 
     
     
     
@@ -172,11 +213,7 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 laterImageView.alpha = 0.2
                 backgroundView.backgroundColor = UIColor.lightGray
                 
-                
                 self.laterImageView.frame.origin.x = laterImageViewOriginalX + (translation.x + 75)
-                
-                
-                
                 
             } else if messageImageView.frame.origin.x < -60 && messageImageView.frame.origin.x > -260 {
                 laterImageView.alpha = 1
@@ -247,10 +284,9 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                     })
                 }
                 
+                
                 //Conditional to finish movement when pan messageViewLeft initiated
 
-                
-                
             } else if messageImageView.frame.origin.x < 0 && messageImageView.frame.origin.x > -60 {
                 laterImageView.alpha = 0.2
                 backgroundView.backgroundColor = UIColor.lightGray
@@ -259,12 +295,7 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                     self.archiveImageView.alpha = 0
                     
                 })
-                
-                
-                
-                
-                
-                
+
             } else if messageImageView.frame.origin.x < -60 && messageImageView.frame.origin.x > -260 {
                 backgroundView.backgroundColor = UIColor.yellow
 
@@ -286,7 +317,6 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                     
                 }
 
-                
             } else if messageImageView.frame.origin.x < -260 {
                 
                 archiveImageView.alpha = 0
@@ -296,7 +326,6 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                     self.messageImageView.frame.origin.x = self.messageOriginalX + (translation.x - 300)
                     self.listImageView.alpha = 0
 
-                    
                 }) { (Bool) in
                     UIView.animate(withDuration: 0.1, animations: {
                         self.backgroundView.alpha = 0
@@ -304,38 +333,18 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                     UIView.animate(withDuration: 0.5, animations: {
                         self.feedImageView.frame.origin.y = self.feedImageOriginalY + (translation.y - 100)
                         
-                        
                     })
                 }
 
                 
             }
-            
-            
-            
-            
+
             
         }
-        
-        
-        
-        
+
     }
     
-    
-    //            if location.y > 395 {
-    //                UIView.animate(withDuration: 0.4, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.7, options: [], animations: {
-    //
-    //                    let imageView = sender.view as! UIImageView
-    //
-    //                    self.newlyCreatedFace.center = imageView.center
-    //                    self.newlyCreatedFace.center.y += self.trayView.frame.origin.y
-    //                    self.newlyCreatedFace.center.x += self.trayView.frame.origin.x
-    //                    self.newlyCreatedFace.transform = self.newlyCreatedFace.transform.scaledBy(x: 0.8, y: 0.8)
-    //                }) { (Bool) in
-    //                    self.newlyCreatedFace.removeFromSuperview()
-    //
-    //                }
+
     
     
     
