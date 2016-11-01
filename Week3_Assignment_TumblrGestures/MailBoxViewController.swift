@@ -29,6 +29,8 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
    
     @IBOutlet weak var reescheduleFullImageView: UIImageView!
     
+    var reescheduleFullImageOriginalX: CGFloat!
+    
     var messageOriginalX: CGFloat!
     var laterImageViewOriginalX: CGFloat!
     var listImageViewOriginalX: CGFloat!
@@ -38,22 +40,24 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
     var masterParentViewOriginalX: CGFloat!
     var feedImageOriginalY: CGFloat!
 
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        feedScrollView.contentSize = CGSize(width: 365, height: 1500)
-        feedScrollView.frame.size = CGSize(width: 365, height: 667)
+        feedScrollView.contentSize = CGSize(width: 375, height: 1500)
+        feedScrollView.frame.size = CGSize(width: 375, height: 667)
         
         
       
 
 
+        reescheduleFullImageOriginalX = reescheduleFullImageView.frame.origin.x
+        
+        
 
+         laterImageViewOriginalX = laterImageView.frame.origin.x
 
-        
-        
-        
         
         
         messageOriginalX = messageImageView.frame.origin.x
@@ -120,7 +124,21 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
     @IBAction func toggleNavSegmentedControl(_ sender: UISegmentedControl) {
         
         if sender.selectedSegmentIndex == 0 {
-            reescheduleFullImageView.alpha = 1
+            
+            
+            UIView.animate(withDuration: 0, animations: {
+               self.reescheduleFullImageView.frame.origin.x = self.reescheduleFullImageOriginalX - 375
+                self.reescheduleFullImageView.alpha = 1
+                
+            }) { (Bool) in
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.reescheduleFullImageView.frame.origin.x = self.reescheduleFullImageOriginalX
+                    
+                })
+
+            
+            }
+           
             
             
         } else if sender.selectedSegmentIndex == 1 {
@@ -306,18 +324,22 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
             // panning messageImageView to the right
             
             if messageImageView.frame.origin.x > 0 && messageImageView.frame.origin.x < 60 {
+                
+               
                 let opacity = convertValue(inputValue: CGFloat(translation.x), r1Min: 0, r1Max: 60, r2Min: 0, r2Max: 1)
                 archiveImageView.alpha = opacity
                 
                 backgroundView.backgroundColor = UIColor.lightGray
                 
                 
-                archiveImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 65)
+                archiveImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 70)
                 
                 
                 
                 
             } else if messageImageView.frame.origin.x > 60 && messageImageView.frame.origin.x < 260 {
+                listImageView.alpha = 0
+                laterImageView.alpha = 0
                 let myGreen = UIColor(red: 112/255, green: 216/255, blue: 98/255, alpha: 1.0)
 
                 
@@ -325,18 +347,20 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 
                 
                 
-                archiveImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 65)
+                archiveImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 70)
                 
                 self.archiveImageView.alpha = 1
                 
                 
                 
             } else if messageImageView.frame.origin.x > 260{
+                listImageView.alpha = 0
+                laterImageView.alpha = 0
                 let myRed = UIColor(red: 235, green: 84, blue: 51)
 
                 self.backgroundView.backgroundColor = myRed
                 self.deleteImageView.alpha = 1
-                deleteImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 65)
+                deleteImageView.frame.origin.x = archiveImageViewOriginalX + (translation.x - 70)
                 
                 self.archiveImageView.alpha = 0
                 
@@ -344,30 +368,34 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 //panning messageImageView to the left
                 
             } else if messageImageView.frame.origin.x < 0 && messageImageView.frame.origin.x > -60 {
+                deleteImageView.alpha = 0
+                archiveImageView.alpha = 0
                 let opacity = convertValue(inputValue: CGFloat(translation.x), r1Min: 0, r1Max: -60, r2Min: 0, r2Max: 1)
                 laterImageView.alpha = opacity
                 
                 backgroundView.backgroundColor = UIColor.lightGray
-                self.laterImageView.frame.origin.x = laterImageViewOriginalX + (translation.x + 65)
+                self.laterImageView.frame.origin.x = laterImageViewOriginalX + (translation.x + 70)
                 
             } else if messageImageView.frame.origin.x < -60 && messageImageView.frame.origin.x > -260 {
+                deleteImageView.alpha = 0
+                archiveImageView.alpha = 0
                 laterImageView.alpha = 1
                 let myYellow = UIColor(red: 250, green: 211, blue: 51)
 
                 backgroundView.backgroundColor = myYellow
                 
                 
-                self.laterImageView.frame.origin.x = laterImageViewOriginalX + (translation.x + 65)
+                self.laterImageView.frame.origin.x = laterImageViewOriginalX + (translation.x + 70)
                 
                 
             } else if messageImageView.frame.origin.x < -260 {
+                deleteImageView.alpha = 0
                 archiveImageView.alpha = 0
-                
                 // custom colors
                 let myBrown = UIColor(red: 216, green: 166, blue: 117)
                 self.backgroundView.backgroundColor = myBrown
                 listImageView.alpha = 1
-                self.listImageView.frame.origin.x = listImageViewOriginalX + (translation.x + 65)
+                self.listImageView.frame.origin.x = listImageViewOriginalX + (translation.x + 70)
                 
                 self.laterImageView.alpha = 0
                 
@@ -380,13 +408,16 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
             
         
             if messageImageView.frame.origin.x > 0 && messageImageView.frame.origin.x < 60 {
+                listImageView.alpha = 0
+                laterImageView.alpha = 0
                 let opacity = convertValue(inputValue: CGFloat(translation.x), r1Min: 0, r1Max: -60, r2Min: 0, r2Max: 1)
                 archiveImageView.alpha = opacity
                
                 laterImageView.alpha = 0
                 listImageView.alpha = 0
                 UIView.animate(withDuration: 0.3, animations: {
-                    self.messageImageView.frame.origin.x = self.messageOriginalX + translation.x
+                    self.messageImageView.frame.origin.x = self.messageOriginalX
+                    self.archiveImageView.frame.origin.x = self.archiveImageViewOriginalX + (translation.x - 70)
                     
                 })
                 
@@ -395,6 +426,8 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 laterImageView.alpha = 0
                 listImageView.alpha = 0
                 UIView.animate(withDuration: 0.4, animations: {
+                    self.archiveImageView.frame.origin.x = self.archiveImageViewOriginalX + (translation.x - 70)
+
                     
                     self.messageImageView.frame.origin.x = self.messageOriginalX + (translation.x + 300)
                     self.archiveImageView.alpha = 0
@@ -412,12 +445,14 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 }
                 
             } else if messageImageView.frame.origin.x > 260{
-                self.archiveImageView.alpha = 0
                 listImageView.alpha = 0
+                laterImageView.alpha = 0
 
                 
 
                 UIView.animate(withDuration: 0.3, animations: {
+                    self.deleteImageView.frame.origin.x = self.laterImageViewOriginalX + (translation.x - 70)
+
                     self.messageImageView.frame.origin.x = self.messageOriginalX + (translation.x + 300)
                     self.deleteImageView.alpha = 0
                     
@@ -443,11 +478,11 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 
                 let opacity = convertValue(inputValue: CGFloat(translation.x), r1Min: 0, r1Max: -60, r2Min: 0, r2Max: 1)
                 laterImageView.alpha = opacity
-
-                
                 
                 backgroundView.backgroundColor = UIColor.lightGray
                 UIView.animate(withDuration: 0.2, animations: {
+                    self.laterImageView.frame.origin.x = self.laterImageViewOriginalX + (translation.x + 70)
+                    
 
                     self.messageImageView.frame.origin.x = self.messageOriginalX
                     
@@ -463,6 +498,8 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 UIView.animate(withDuration: 0.3, animations: {
                     self.messageImageView.frame.origin.x = self.messageOriginalX + (translation.x - 300)
                     self.laterImageView.alpha = 0
+                    self.laterImageView.frame.origin.x = self.laterImageViewOriginalX + (translation.x + 70)
+
                     self.reescheduleFullImageView.alpha = 1
 
 
@@ -482,11 +519,13 @@ class MailBoxViewController: UIViewController, UIScrollViewDelegate, UIGestureRe
                 
                 archiveImageView.alpha = 0
                 deleteImageView.alpha = 0
-                let myBrown = UIColor(red: 216, green: 166, blue: 217)
+                let myBrown = UIColor(red: 216, green: 166, blue: 117)
 
                 self.backgroundView.backgroundColor = myBrown
                 self.listImageView.alpha = 1
                 UIView.animate(withDuration: 0.3, animations: {
+                    self.listImageView.frame.origin.x = self.listImageViewOriginalX + (translation.x + 70)
+
                     self.messageImageView.frame.origin.x = self.messageOriginalX + (translation.x - 300)
                     self.listImageView.alpha = 0
                     self.fullScreenListImageView.alpha = 1

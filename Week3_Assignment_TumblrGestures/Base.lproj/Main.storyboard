@@ -93,8 +93,8 @@
                                             <segue destination="PED-cZ-WJ4" kind="modal" modalTransitionStyle="flipHorizontal" id="4Xo-Sf-7Ga"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3wM-8H-dTg">
-                                        <rect key="frame" x="192" y="341" width="30" height="24"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3wM-8H-dTg">
+                                        <rect key="frame" x="37" y="56" width="30" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
                                             <action selector="menuRestoreButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u8L-7C-SaX"/>
