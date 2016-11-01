@@ -37,7 +37,13 @@ Time spent: `<12>`
 
 #### The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] Background has custom colors as the mailBox app
+- [x] Segmented control animates back to the segmentInbox, showing where the user is
+- [x] Icons animate as user translates the messageImageView
+- [x] created ComposeView
+
+
+
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
